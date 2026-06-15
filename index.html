@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maa Phylis Store · Accra</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFFFF;
+    --gold: #C9973A;
+    --gold-light: #F0DEB4;
+    --gold-dark: #8B6520;
+    --rose: #C4786A;
+    --rose-light: #F5E8E5;
+    --ink: #1A1714;
+    --ink-soft: #3D3630;
+    --muted: #8A7F78;
+    --border: rgba(201,151,58,0.18);
+    --border-strong: rgba(201,151,58,0.35);
+    --shadow: 0 2px 20px rgba(26,23,20,0.07);
+    --shadow-lg: 0 8px 40px rgba(26,23,20,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  .layout { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 240px;
+    background: var(--ink);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+  }
+
+  .sidebar-brand {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .brand-icon {
+    width: 36px; height: 36px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .brand-icon svg { width: 18px; height: 18px; fill: var(--ink); }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+
+  .brand-sub {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .sidebar-nav { padding: 1rem 0; flex: 1; }
+
+  .nav-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 0.5rem 1.5rem 0.3rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.65rem 1.5rem;
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.04); }
+
+  .nav-item.active {
+    color: var(--gold);
+    border-left-color: var(--gold);
+    background: rgba(201,151,58,0.08);
+    font-weight: 500;
+  }
+
+  .nav-item svg { width: 15px; height: 15px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+  .sidebar-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Main ── */
+  .main { margin-left: 240px; flex: 1; }
+
+  .topbar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+  .date-chip {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .seller-chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .chip-matilda { background: #E8D5F5; color: #5B2D8E; }
+  .chip-matilda.active { background: #5B2D8E; color: #fff; }
+  .chip-emmanuel { background: #D5EAF5; color: #1A5C7E; }
+  .chip-emmanuel.active { background: #1A5C7E; color: #fff; }
+
+  .content { padding: 2rem 2.5rem; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── Metric cards ── */
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 2rem; }
+
+  .metric-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    opacity: 0;
+  }
+
+  .metric-card.accent::before { opacity: 1; }
+
+  .metric-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .metric-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .metric-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .metric-icon {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .metric-icon svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .card-title-sm {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Form ── */
+  .form-grid { display: grid; grid-template-columns: 1fr 1.4fr 80px 110px; gap: 12px; align-items: end; margin-bottom: 12px; }
+  .form-grid2 { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: end; }
+
+  .field label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  .field select, .field input {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 9px;
+    background: var(--cream);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .field select:focus, .field input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.12);
+    background: #fff;
+  }
+
+  .btn-primary {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: var(--ink);
+    color: var(--gold);
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-primary:hover { background: var(--ink-soft); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(26,23,20,0.2); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-ghost {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-ghost:hover { background: var(--cream); color: var(--ink); }
+
+  .btn-danger-ghost {
+    font-size: 11px;
+    padding: 4px 8px;
+    background: transparent;
+    color: #C4786A;
+    border: 1px solid rgba(196,120,106,0.3);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-danger-ghost:hover { background: var(--rose-light); }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    background: var(--ink);
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  thead th {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td { padding: 10px 12px; border-bottom: 1px solid rgba(201,151,58,0.08); color: var(--ink-soft); vertical-align: middle; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: rgba(201,151,58,0.04); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .badge-m { background: #EDE0F7; color: #5B2D8E; }
+  .badge-e { background: #D5EAF5; color: #1A5C7E; }
+  .badge-low { background: #FAE8E5; color: #933; }
+  .badge-ok { background: #E5F5E8; color: #1A6E35; }
+
+  .amount { font-weight: 600; color: var(--ink); font-family: 'Playfair Display', serif; font-size: 14px; }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--muted);
+  }
+
+  .empty-state svg { width: 36px; height: 36px; stroke: var(--gold-light); fill: none; stroke-width: 1.2; margin-bottom: 0.75rem; }
+  .empty-state p { font-size: 13px; }
+
+  /* ── Filter row ── */
+  .filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-row select, .filter-row input[type="date"] {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 7px 10px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    background: var(--cream);
+    color: var(--ink);
+    outline: none;
+  }
+
+  .filter-row select:focus, .filter-row input[type="date"]:focus { border-color: var(--gold); }
+
+  /* ── Stock bars ── */
+  .stock-item {
+    display: grid;
+    grid-template-columns: 160px 1fr 80px 50px;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201,151,58,0.08);
+  }
+
+  .stock-item:last-child { border-bottom: none; }
+  .stock-name { font-size: 13px; font-weight: 500; color: var(--ink-soft); }
+
+  .bar-wrap { height: 6px; background: var(--cream); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  .stock-count { font-size: 12px; font-weight: 600; text-align: right; color: var(--ink); }
+
+  .stock-input {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    width: 50px;
+    padding: 5px 6px;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    background: var(--cream);
+    color: var(--ink);
+    text-align: center;
+    outline: none;
+  }
+
+  .stock-input:focus { border-color: var(--gold); }
+
+  /* ── Summary charts ── */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .bar-chart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+
+  .bar-chart-name { font-size: 12px; color: var(--ink-soft); min-width: 120px; }
+  .bar-chart-wrap { flex: 1; height: 8px; background: var(--cream); border-radius: 4px; overflow: hidden; }
+  .bar-chart-fill { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); border-radius: 4px; transition: width 0.5s ease; }
+  .bar-chart-val { font-size: 12px; font-weight: 600; color: var(--ink); min-width: 56px; text-align: right; }
+
+  .seller-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .seller-card {
+    border-radius: 12px;
+    padding: 1.1rem;
+    text-align: center;
+  }
+
+  .seller-card-m { background: #F2E8FC; }
+  .seller-card-e { background: #E3F0FA; }
+
+  .seller-card-name { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .seller-card-m .seller-card-name { color: #5B2D8E; }
+  .seller-card-e .seller-card-name { color: #1A5C7E; }
+
+  .seller-card-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .seller-card-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* ── Total footer ── */
+  .total-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .total-label { color: var(--muted); font-weight: 500; }
+  .total-val { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--ink); }
+
+  /* ── Gold ornament ── */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .ornament::before, .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gold-light);
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6" stroke="var(--ink)" stroke-width="1.8"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+      <div class="brand-name">Maa Phylis</div>
+      <div class="brand-sub">Beauty Store · Accra</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-label">Menu</div>
+      <div class="nav-item active" onclick="switchTab('log', this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Record Sale
+      </div>
+      <div class="nav-item" onclick="switchTab('history', this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Sales History
+      </div>
+      <div class="nav-item" onclick="switchTab('stock', this)">
+        <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+        Inventory
+      </div>
+      <div class="nav-item" onclick="switchTab('summary', this)">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Summary
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      Shipped from New York<br>by Maa Phylis
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="topbar">
+      <div class="page-title" id="page-title">Record a sale</div>
+      <div class="topbar-right">
+        <div class="date-chip" id="date-chip"></div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- RECORD SALE -->
+      <div id="panel-log" class="panel active">
+        <div class="metrics" id="today-metrics">
+          <div class="metric-card accent">
+            <div class="metric-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+            <div class="metric-label">Today's revenue</div>
+            <div class="metric-value" id="m-today-rev">GH₵0</div>
+            <div class="metric-sub" id="m-today-cnt">0 sales</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div class="metric-label">Matilda today</div>
+            <div class="metric-value" id="m-matilda">GH₵0</div>
+            <div class="metric-sub" id="m-matilda-cnt">0 sales</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+            <div class="metric-label">Emmanuel today</div>
+            <div class="metric-value" id="m-emmanuel">GH₵0</div>
+            <div class="metric-sub" id="m-emmanuel-cnt">0 sales</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="metric-label">All-time revenue</div>
+            <div class="metric-value" id="m-alltime">GH₵0</div>
+            <div class="metric-sub" id="m-alltime-cnt">0 total sales</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">New sale</div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Seller</label>
+              <select id="f-seller">
+                <option value="Matilda">Matilda</option>
+                <option value="Emmanuel">Emmanuel</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Product</label>
+              <select id="f-product">
+                <option>Body splash</option>
+                <option>CeraVe lotion</option>
+                <option>CeraVe cream</option>
+                <option>Jergens</option>
+                <option>Pampers</option>
+                <option>Bath &amp; body set</option>
+                <option>Johnson oil</option>
+                <option>Perfumes</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Qty</label>
+              <input type="number" id="f-qty" value="1" min="1">
+            </div>
+            <div class="field">
+              <label>Price (GH₵)</label>
+              <input type="number" id="f-price" placeholder="0.00" min="0" step="0.01">
+            </div>
+          </div>
+          <div class="form-grid2">
+            <div class="field">
+              <label>Note (optional)</label>
+              <input type="text" id="f-note" placeholder="e.g. customer paid in full, bulk order…">
+            </div>
+            <button class="btn-primary" onclick="addSale()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Record sale
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Today's sales</div>
+            <div class="card-title-sm" id="today-count-label"></div>
+          </div>
+          <div id="today-table"></div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div id="panel-history" class="panel">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">All sales</div>
+            <button class="btn-ghost" onclick="exportCSV()">↓ Export CSV</button>
+          </div>
+          <div class="filter-row">
+            <select id="h-seller" onchange="renderHistory()">
+              <option value="">All sellers</option>
+              <option value="Matilda">Matilda</option>
+              <option value="Emmanuel">Emmanuel</option>
+            </select>
+            <select id="h-product" onchange="renderHistory()">
+              <option value="">All products</option>
+              <option>Body splash</option>
+              <option>CeraVe lotion</option>
+              <option>CeraVe cream</option>
+              <option>Jergens</option>
+              <option>Pampers</option>
+              <option>Bath &amp; body set</option>
+              <option>Johnson oil</option>
+              <option>Perfumes</option>
+            </select>
+            <input type="date" id="h-date" onchange="renderHistory()">
+            <button class="btn-ghost" onclick="clearFilters()">Clear</button>
+          </div>
+          <div class="table-wrap" id="history-table"></div>
+        </div>
+      </div>
+
+      <!-- INVENTORY -->
+      <div id="panel-stock" class="panel">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Stock levels</div>
+            <button class="btn-primary" onclick="saveStock()">Save stock</button>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:1.25rem">Edit quantities below when new stock arrives from New York. Red = very low, amber = getting low.</p>
+          <div id="stock-list"></div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div id="panel-summary" class="panel">
+        <div class="metrics">
+          <div class="metric-card accent">
+            <div class="metric-label">Total revenue</div>
+            <div class="metric-value" id="s-total">GH₵0</div>
+            <div class="metric-sub" id="s-total-cnt"></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">This month</div>
+            <div class="metric-value" id="s-month">GH₵0</div>
+            <div class="metric-sub" id="s-month-cnt"></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Best seller</div>
+            <div class="metric-value" style="font-size:16px;padding-top:4px" id="s-bestseller">—</div>
+            <div class="metric-sub" id="s-bestseller-qty"></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Top earner</div>
+            <div class="metric-value" style="font-size:16px;padding-top:4px" id="s-topearner">—</div>
+            <div class="metric-sub" id="s-topearner-sub"></div>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="card">
+            <div class="card-title" style="margin-bottom:1rem">Seller performance</div>
+            <div class="seller-compare">
+              <div class="seller-card seller-card-m">
+                <div class="seller-card-name">Matilda</div>
+                <div class="seller-card-amount" id="s-m-total">GH₵0</div>
+                <div class="seller-card-sub" id="s-m-cnt">0 sales</div>
+              </div>
+              <div class="seller-card seller-card-e">
+                <div class="seller-card-name">Emmanuel</div>
+                <div class="seller-card-amount" id="s-e-total">GH₵0</div>
+                <div class="seller-card-sub" id="s-e-cnt">0 sales</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="margin-bottom:1rem">Sales by product</div>
+            <div id="product-bars"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const PRODUCTS = ['Body splash','CeraVe lotion','CeraVe cream','Jergens','Pampers','Bath & body set','Johnson oil','Perfumes'];
+const PAGE_TITLES = { log: 'Record a sale', history: 'Sales history', stock: 'Inventory', summary: 'Summary' };
+
+let sales = JSON.parse(localStorage.getItem('maa_sales') || '[]');
+let stock = JSON.parse(localStorage.getItem('maa_stock') || JSON.stringify(Object.fromEntries(PRODUCTS.map(p => [p, 10]))));
+
+function today() { return new Date().toISOString().slice(0, 10); }
+function fmtDate(d) { return new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+function fmtMoney(n) { return 'GH₵' + (+n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function nowTime() { return new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); }
+
+// Update date chip
+function updateDate() {
+  const d = new Date();
+  document.getElementById('date-chip').textContent = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
+}
+updateDate();
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('page-title').textContent = PAGE_TITLES[name];
+  if (name === 'history') renderHistory();
+  if (name === 'summary') renderSummary();
+  if (name === 'stock') renderStock();
+}
+
+function addSale() {
+  const seller = document.getElementById('f-seller').value;
+  const product = document.getElementById('f-product').value;
+  const qty = parseInt(document.getElementById('f-qty').value) || 1;
+  const price = parseFloat(document.getElementById('f-price').value) || 0;
+  const note = document.getElementById('f-note').value.trim();
+
+  const sale = { id: Date.now(), date: today(), time: nowTime(), seller, product, qty, price, total: qty * price, note };
+  sales.unshift(sale);
+  if (stock[product] !== undefined) stock[product] = Math.max(0, stock[product] - qty);
+
+  localStorage.setItem('maa_sales', JSON.stringify(sales));
+  localStorage.setItem('maa_stock', JSON.stringify(stock));
+
+  document.getElementById('f-qty').value = 1;
+  document.getElementById('f-price').value = '';
+  document.getElementById('f-note').value = '';
+
+  showToast('✓ Sale recorded — ' + product);
+  renderMetrics();
+  renderToday();
+}
+
+function deleteSale(id) {
+  const s = sales.find(x => x.id === id);
+  if (s) { stock[s.product] = (stock[s.product] || 0) + s.qty; localStorage.setItem('maa_stock', JSON.stringify(stock)); }
+  sales = sales.filter(x => x.id !== id);
+  localStorage.setItem('maa_sales', JSON.stringify(sales));
+  renderMetrics(); renderToday(); renderHistory();
+  showToast('Sale removed');
+}
+
+function renderMetrics() {
+  const t = today();
+  const td = sales.filter(s => s.date === t);
+  const mSales = td.filter(s => s.seller === 'Matilda');
+  const eSales = td.filter(s => s.seller === 'Emmanuel');
+  const todayRev = td.reduce((a, s) => a + s.total, 0);
+  const allRev = sales.reduce((a, s) => a + s.total, 0);
+
+  document.getElementById('m-today-rev').textContent = fmtMoney(todayRev);
+  document.getElementById('m-today-cnt').textContent = td.length + ' sale' + (td.length !== 1 ? 's' : '');
+  document.getElementById('m-matilda').textContent = fmtMoney(mSales.reduce((a, s) => a + s.total, 0));
+  document.getElementById('m-matilda-cnt').textContent = mSales.length + ' sale' + (mSales.length !== 1 ? 's' : '');
+  document.getElementById('m-emmanuel').textContent = fmtMoney(eSales.reduce((a, s) => a + s.total, 0));
+  document.getElementById('m-emmanuel-cnt').textContent = eSales.length + ' sale' + (eSales.length !== 1 ? 's' : '');
+  document.getElementById('m-alltime').textContent = fmtMoney(allRev);
+  document.getElementById('m-alltime-cnt').textContent = sales.length + ' total sales';
+}
+
+function renderToday() {
+  const td = sales.filter(s => s.date === today());
+  document.getElementById('today-count-label').textContent = td.length + ' sale' + (td.length !== 1 ? 's' : '');
+  const el = document.getElementById('today-table');
+  if (!td.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>No sales recorded today yet.<br>Use the form above to add one.</p></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Time</th><th>Seller</th><th>Product</th><th>Qty</th><th>Unit price</th><th>Total</th><th>Note</th><th></th></tr></thead>
+    <tbody>${td.map(s => `<tr>
+      <td>${s.time}</td>
+      <td><span class="badge ${s.seller === 'Matilda' ? 'badge-m' : 'badge-e'}">${s.seller}</span></td>
+      <td>${s.product}</td>
+      <td>${s.qty}</td>
+      <td>${fmtMoney(s.price)}</td>
+      <td class="amount">${fmtMoney(s.total)}</td>
+      <td style="color:var(--muted);font-size:12px">${s.note || '—'}</td>
+      <td><button class="btn-danger-ghost" onclick="deleteSale(${s.id})">Remove</button></td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+function renderHistory() {
+  const fs = document.getElementById('h-seller').value;
+  const fp = document.getElementById('h-product').value;
+  const fd = document.getElementById('h-date').value;
+  let data = [...sales];
+  if (fs) data = data.filter(s => s.seller === fs);
+  if (fp) data = data.filter(s => s.product === fp);
+  if (fd) data = data.filter(s => s.date === fd);
+  const el = document.getElementById('history-table');
+  if (!data.length) {
+    el.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><p>No sales match this filter.</p></div>`;
+    return;
+  }
+  const total = data.reduce((a, s) => a + s.total, 0);
+  el.innerHTML = `<table>
+    <thead><tr><th>Date</th><th>Time</th><th>Seller</th><th>Product</th><th>Qty</th><th>Unit price</th><th>Total</th><th>Note</th><th></th></tr></thead>
+    <tbody>${data.map(s => `<tr>
+      <td>${fmtDate(s.date)}</td>
+      <td>${s.time}</td>
+      <td><span class="badge ${s.seller === 'Matilda' ? 'badge-m' : 'badge-e'}">${s.seller}</span></td>
+      <td>${s.product}</td>
+      <td>${s.qty}</td>
+      <td>${fmtMoney(s.price)}</td>
+      <td class="amount">${fmtMoney(s.total)}</td>
+      <td style="color:var(--muted);font-size:12px">${s.note || '—'}</td>
+      <td><button class="btn-danger-ghost" onclick="deleteSale(${s.id})">Remove</button></td>
+    </tr>`).join('')}</tbody>
+  </table>
+  <div class="total-row"><span class="total-label">Total for ${data.length} sale${data.length!==1?'s':''}</span><span class="total-val">${fmtMoney(total)}</span></div>`;
+}
+
+function clearFilters() {
+  document.getElementById('h-seller').value = '';
+  document.getElementById('h-product').value = '';
+  document.getElementById('h-date').value = '';
+  renderHistory();
+}
+
+function renderStock() {
+  const maxQ = Math.max(...Object.values(stock), 1);
+  document.getElementById('stock-list').innerHTML = PRODUCTS.map(p => {
+    const q = stock[p] || 0;
+    const pct = Math.round((q / maxQ) * 100);
+    const color = q <= 2 ? '#C4786A' : q <= 5 ? '#C9973A' : '#2E8B57';
+    const badge = q <= 2 ? '<span class="badge badge-low">Very low</span>' : q <= 5 ? '<span class="badge" style="background:#FEF3CD;color:#8B6520">Low</span>' : '<span class="badge badge-ok">OK</span>';
+    return `<div class="stock-item">
+      <div class="stock-name">${p}</div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div style="display:flex;align-items:center;gap:6px">${badge}</div>
+      <input class="stock-input" type="number" min="0" value="${q}" data-prod="${p}" onchange="stock[this.dataset.prod]=parseInt(this.value)||0;renderStock()">
+    </div>`;
+  }).join('');
+}
+
+function saveStock() {
+  localStorage.setItem('maa_stock', JSON.stringify(stock));
+  showToast('✓ Stock levels saved');
+}
+
+function renderSummary() {
+  const total = sales.reduce((a, s) => a + s.total, 0);
+  const month = new Date().toISOString().slice(0, 7);
+  const mthSales = sales.filter(s => s.date.startsWith(month));
+  const mthTotal = mthSales.reduce((a, s) => a + s.total, 0);
+  const mSales = sales.filter(s => s.seller === 'Matilda');
+  const eSales = sales.filter(s => s.seller === 'Emmanuel');
+  const mTotal = mSales.reduce((a, s) => a + s.total, 0);
+  const eTotal = eSales.reduce((a, s) => a + s.total, 0);
+
+  const byProduct = {};
+  PRODUCTS.forEach(p => {
+    const ps = sales.filter(s => s.product === p);
+    byProduct[p] = { qty: ps.reduce((a, s) => a + s.qty, 0), total: ps.reduce((a, s) => a + s.total, 0) };
+  });
+
+  const sorted = [...PRODUCTS].sort((a, b) => byProduct[b].qty - byProduct[a].qty);
+  const best = sorted[0];
+  const topEarner = mTotal >= eTotal ? 'Matilda' : 'Emmanuel';
+  const topTotal = Math.max(mTotal, eTotal);
+
+  document.getElementById('s-total').textContent = fmtMoney(total);
+  document.getElementById('s-total-cnt').textContent = sales.length + ' total transactions';
+  document.getElementById('s-month').textContent = fmtMoney(mthTotal);
+  document.getElementById('s-month-cnt').textContent = mthSales.length + ' this month';
+  document.getElementById('s-bestseller').textContent = byProduct[best]?.qty > 0 ? best : '—';
+  document.getElementById('s-bestseller-qty').textContent = byProduct[best]?.qty > 0 ? byProduct[best].qty + ' units sold' : 'No data yet';
+  document.getElementById('s-topearner').textContent = total > 0 ? topEarner : '—';
+  document.getElementById('s-topearner-sub').textContent = total > 0 ? fmtMoney(topTotal) + ' earned' : 'No data yet';
+
+  document.getElementById('s-m-total').textContent = fmtMoney(mTotal);
+  document.getElementById('s-m-cnt').textContent = mSales.length + ' sale' + (mSales.length !== 1 ? 's' : '');
+  document.getElementById('s-e-total').textContent = fmtMoney(eTotal);
+  document.getElementById('s-e-cnt').textContent = eSales.length + ' sale' + (eSales.length !== 1 ? 's' : '');
+
+  const maxQty = Math.max(...sorted.map(p => byProduct[p].qty), 1);
+  document.getElementById('product-bars').innerHTML = sorted.map(p => {
+    const pct = Math.round((byProduct[p].qty / maxQty) * 100);
+    return `<div class="bar-chart-item">
+      <div class="bar-chart-name">${p}</div>
+      <div class="bar-chart-wrap"><div class="bar-chart-fill" style="width:${pct}%"></div></div>
+      <div class="bar-chart-val">${byProduct[p].qty} units</div>
+    </div>`;
+  }).join('');
+}
+
+function exportCSV() {
+  if (!sales.length) { showToast('No sales to export'); return; }
+  const rows = [['Date', 'Time', 'Seller', 'Product', 'Qty', 'Unit Price (GH₵)', 'Total (GH₵)', 'Note']];
+  sales.forEach(s => rows.push([s.date, s.time, s.seller, s.product, s.qty, s.price.toFixed(2), s.total.toFixed(2), s.note || '']));
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'maa-phylis-sales-' + today() + '.csv';
+  a.click();
+  showToast('✓ CSV exported');
+}
+
+// Init
+renderMetrics();
+renderToday();
+renderStock();
+</script>
+</body>
+</html>
